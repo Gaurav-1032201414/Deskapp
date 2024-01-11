@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+{% load bootstrap5 %} {% load static %} {% load crispy_forms_tags %}
+<html lang="en">
+  <head>
+    <!-- Basic Page Info -->
+    <meta charset="utf-8" />
+    <title>Register Page</title>
+
+    <!-- Site favicon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{% static 'images\apple-touch-icon.png' %}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{% static 'images\favicon-16x16.png' %}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{% static 'images\favicon-32x32.png' %}"
+    />
+
+    <!-- Mobile Specific Metas -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css\core.css' %}" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css\icon-font.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css\jquery.steps.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css\style.css' %}"
+    />
+
+
+    <style>
+        
+        .account-img {
+            display: block;
+            margin: 0 auto;
+            width: 120px; 
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover; 
+            }
+
+    </style>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-119386393-1");
+    </script>
+  </head>
+
+  <body class="login-page">
+    <div class="login-header box-shadow">
+      <div
+        class="container-fluid d-flex justify-content-between align-items-center"
+      >
+        <div class="brand-logo">
+          <a href="login.html">
+            <img src="{% static 'images/deskapp-logo.svg' %}" alt="" />
+          </a>
+        </div>
+        <div class="logout-button">
+          <button
+            class="btn btn-light border border-primary"
+            style="color: white"
+            type="submit"
+          >
+            <a href="/logout">Log Out</a>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row flex-nowrap">
+        <div class="bg-light col-auto col-md-3 clo-lg-3 min-vh-100">
+          <div class="bg-light p-2">
+            <ul class="nav nav-pills flex-column mt-4">
+              <li class="nav-item">
+                <a href="{% url 'users' %}" class="nav-link text-dark"
+                  ><i class="fs-5 fa fa-gauge"></i
+                  ><span class="fs-4 ms-3 d-none d-sm-inline"
+                    >List of Users</span
+                  ></a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a
+                  href="{% url 'authors_and_sellers' %}"
+                  class="nav-link text-dark"
+                  ><i class="fs-5 fa fa-gauge"></i
+                  ><span class="fs-4 ms-3 d-none d-sm-inline"
+                    >Authors and Sellers</span
+                  ></a
+                >
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'upload_book' %}" class="nav-link text-dark"
+                  ><i class="fs-5 fa fa-gauge"></i
+                  ><span class="fs-4 ms-3 d-none d-sm-inline"
+                    >Upload Book</span
+                  ></a
+                >
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'uploaded_files' %}" class="nav-link text-dark"
+                  ><i class="fs-5 fa fa-gauge"></i
+                  ><span class="fs-4 ms-3 d-none d-sm-inline"
+                    >View Uploaded Files</span
+                  ></a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        {% block content %}
+        <div class="container mt-4">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="media">
+                <img
+                  class="rounded-circle account-img"
+                  style="display: block; margin: 0 auto;"
+                  src='{% static "images/8380015.jpg" %}'
+                  alt="Profile Picture"
+                />
+                <div class="col-md-2">
+                  <div class="media-body" style="padding: 20px;">
+                    <h2 class="account-heading" style="  font-size: 24px; margin-bottom: 10px;">{{ user.username }}</h2>
+                    <p class="text-secondary" style="color: #666;">Email: {{ user.email }}</p>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endblock content %}
+      </div>
+    </div>
+    <script src="{% static 'js\core.js' %}"></script>
+    <script src="{% static 'js\script.min.js' %}"></script>
+    <script src="{% static 'js\process.js' %}"></script>
+    <script src="{% static 'js\layout-settings.js' %}"></script>
+    <script src="{% static 'js\jquery.steps.js' %}"></script>
+    <script src="{% static 'js\steps-setting.js' %}"></script>
+  </body>
+</html>

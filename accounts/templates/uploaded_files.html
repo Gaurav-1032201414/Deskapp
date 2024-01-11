@@ -1,0 +1,133 @@
+{% extends 'upload_book.html' %}
+{% load bootstrap5 %}
+
+{% load thumbnail %}
+
+{% comment %} <!-- templates/uploaded_files.html -->
+{% extends 'upload_book.html' %}
+
+{% block content %}
+  <div class="text-center"><h2>Uploaded Books</h2></div>
+  <table style="border-collapse: collapse; width: 100%; margin-top: 20px; border: 1px solid #ddd; padding: 10px;" class="table table-hover table-bordered ">
+    <thead>
+      <tr>
+        <th style="border: 1px solid #ddd; padding: 8px;">Title</th>
+        <th style="border: 1px solid #ddd; padding: 8px;">Description</th>
+        <th style="border: 1px solid #ddd; padding: 8px;">File</th>
+        <th style="border: 1px solid #ddd; padding: 8px;">Visibility</th>
+        <th style="border: 1px solid #ddd; padding: 8px;">Cost</th>
+        <th style="border: 1px solid #ddd; padding: 8px;">Year Published</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for file in user_files %}
+        <tr>
+          <td style="border: 1px solid #ddd; padding: 8px;">{{ file.title }}</td>
+          <td style="border: 1px solid #ddd; padding: 8px;">{{ file.description }}</td>
+          <td style="border: 1px solid #ddd; padding: 8px;"><a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a></td>
+          <td style="border: 1px solid #ddd; padding: 8px;">{% if file.visibility %}Visible{% else %}Not Visible{% endif %}</td>
+          <td style="border: 1px solid #ddd; padding: 8px;">{{ file.cost }}</td>
+          <td style="border: 1px solid #ddd; padding: 8px;">{{ file.year_published }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %} {% endcomment %}
+
+
+<!-- templates/uploaded_files.html -->
+
+
+{% comment %} 
+{% block content %}
+  <div class="text-center"><h2>Uploaded Books</h2></div>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for file in user_files %}
+      <div class="col">
+        <div class="card h-100">
+          <img src="{{ file.image.url }}" class="card-img-top" alt="{{ file.title }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ file.title }}</h5>
+            <p class="card-text">{{ file.description }}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Visibility:</strong> {% if file.visibility %}Visible{% else %}Not Visible{% endif %}</li>
+            <li class="list-group-item"><strong>Cost:</strong> {{ file.cost }}</li>
+            <li class="list-group-item"><strong>Year Published:</strong> {{ file.year_published }}</li>
+          </ul>
+          <div class="card-footer text-center">
+            <a href="{{ file.file.url }}" target="_blank" class="btn btn-primary">Download</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %} {% endcomment %}
+
+{% comment %} 
+{% block content %}
+  <div class="text-center"><h2>Uploaded Books</h2></div>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for file in user_files %}
+      <div class="col">
+        <div class="card h-100">
+          {% if file.file.url|lower|slice:'-4' == '.pdf' %}
+            
+            {% with file.file.url as thumbnail %}
+              <img src="{{ thumbnail }}" class="card-img-top" alt="{{ file.title }}">
+            {% endwith %}
+          {% else %}
+            <img src="{{ file.file.url }}" class="card-img-top" alt="{{ file.title }}">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ file.title }}</h5>
+            <p class="card-text">{{ file.description }}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Visibility:</strong> {% if file.visibility %}Visible{% else %}Not Visible{% endif %}</li>
+            <li class="list-group-item"><strong>Cost:</strong> {{ file.cost }}</li>
+            <li class="list-group-item"><strong>Year Published:</strong> {{ file.year_published }}</li>
+          </ul>
+          <div class="card-footer text-center">
+            <a href="{{ file.file.url }}" target="_blank" class="btn btn-primary">Download</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %} {% endcomment %}
+
+{% load custom_filters %}
+
+{% block content %}
+  <div class="text-center"><h2>Uploaded Books</h2></div>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for file in user_files %}
+      <div class="col">
+        <div class="card h-80">
+          {% if file.file.name|lower_and_endswith:".pdf" %}
+            <img src="{{ file.thumbnail_path }}" class="card-img-top img-thumbnail" alt="{{ file.title }}">
+          {% else %}
+            <img src="{{ file.file.url }}" class="card-img-top" alt="{{ file.title }}">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ file.title }}</h5>
+            <p class="card-text">{{ file.description }}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Visibility:</strong> {% if file.visibility %}Visible{% else %}Not Visible{% endif %}</li>
+            <li class="list-group-item"><strong>Cost:</strong> {{ file.cost }}</li>
+            <li class="list-group-item"><strong>Year Published:</strong> {{ file.year_published }}</li>
+          </ul>
+          <div class="card-footer text-center">
+            {% if file.file.name|lower_and_endswith:".pdf" %}
+              <a href="{{ file.file.url }}" target="_blank" class="btn btn-primary">View PDF</a>
+            {% else %}
+              <a href="{{ file.file.url }}" target="_blank" class="btn btn-primary">Download</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

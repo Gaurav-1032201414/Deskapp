@@ -1,0 +1,173 @@
+<!-- templates/upload_book.html -->
+{% comment %} {% extends 'user2.html' %} {% endcomment %} {% load bootstrap5 %}
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Basic Page Info -->
+    <meta charset="utf-8" />
+    {% comment %}
+    <title>Register Page</title>
+    {% endcomment %}
+
+    <!-- Site favicon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{% static 'images\apple-touch-icon.png' %}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{% static 'images\favicon-16x16.png' %}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{% static 'images\favicon-32x32.png' %}"
+    />
+
+    <!-- Mobile Specific Metas -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css\core.css' %}" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css\icon-font.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css\jquery.steps.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css\style.css' %}"
+    />
+  </head>
+  <body class="login-page">
+    <div class="login-header box-shadow">
+      <div
+        class="container-fluid d-flex justify-content-between align-items-center"
+      >
+        <div class="brand-logo">
+          <a href="{% url 'index' %}">
+            <img src="{% static 'images/deskapp-logo.svg' %}" alt="" />
+          </a>
+        </div>
+        <div class="logout-button">
+          <button
+            class="btn btn-light border border-primary"
+            style="color: white"
+            type="submit"
+          >
+            <a href="/logout">Log Out</a>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row flex-nowrap">
+        <div class="bg-light col-auto col-md-3 clo-lg-3 min-vh-100">
+          <div class="bg-light p-2">
+            <ul class="nav nav-pills flex-column mt-4">
+              <li class="nav-item">
+                <a href="{% url 'users' %}" class="nav-link text-dark"
+                  ><i class="fs-5 fa fa-gauge"></i
+                  ><span class="fs-4 ms-3 d-none d-sm-inline"
+                    >List of Users</span
+                  ></a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a
+                  href="{% url 'authors_and_sellers' %}"
+                  class="nav-link text-dark"
+                  ><i class="fs-5 fa fa-gauge"></i
+                  ><span class="fs-4 ms-3 d-none d-sm-inline"
+                    >Authors and Sellers</span
+                  ></a
+                >
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'upload_book' %}" class="nav-link text-dark"
+                  ><i class="fs-5 fa fa-gauge"></i
+                  ><span class="fs-4 ms-3 d-none d-sm-inline"
+                    >Upload Book</span
+                  ></a
+                >
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'uploaded_files' %}" class="nav-link text-dark"
+                  ><i class="fs-5 fa fa-gauge"></i
+                  ><span class="fs-4 ms-3 d-none d-sm-inline"
+                    >View Uploaded Files</span
+                  ></a
+                >
+              </li>
+            </ul>
+          </div>          
+        </div>
+
+            <div class="container">
+              <div style="padding: 10px; margin: 10px">
+      {% block content %}
+      <div class="text-center"><h2>Upload Book</h2></div>
+      <div>
+        <form method="post" enctype="multipart/form-data" >
+          <div style="padding: 10px; margin: 20px;">
+            {% csrf_token %}
+            {% comment %} <div>{{ form.as_p }}</div> {% endcomment %}
+                    {% crispy form %}
+            <div>
+              <button type="submit" class="btn btn-dark border border-primary">
+                Upload
+              </button>
+            </div>
+          </div>
+        </form>
+
+        {% endblock %}
+      </div>
+    
+  </div>
+
+ 
+
+    <script src="" async defer></script>
+     <!-- BootStrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+  </body>
+</html>
